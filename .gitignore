@@ -1,3 +1,9 @@
+# Downloaded data from Qualtrics
+*/out
+
+# Environment variables
+.env
+
 # Compiled class file
 *.class
 

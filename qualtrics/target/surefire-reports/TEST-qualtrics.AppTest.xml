@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="qualtrics.AppTest" time="0.045" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\test-classes;C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\classes;C:\Users\mdema\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\mdema\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\http-client\1.0.12\http-client-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\authentication\1.0.12\authentication-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\api-client-library\1.0.12\api-client-library-1.0.12.jar;C:\Users\mdema\.m2\repository\net\lingala\zip4j\zip4j\2.6.3\zip4j-2.6.3.jar;"/>
+    <property name="java.vm.vendor" value="Amazon.com Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
+    <property name="user.timezone" value="America/Los_Angeles"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="user.country" value="CA"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\mdema\AppData\Local\Temp\surefire3039921865100350764\surefirebooter905823369865259483.jar C:\Users\mdema\AppData\Local\Temp\surefire3039921865100350764 2020-10-04T19-32-43_456-jvmRun1 surefire5390465426527453227tmp surefire_06701927298382132306tmp"/>
+    <property name="surefire.test.class.path" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\test-classes;C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\classes;C:\Users\mdema\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\mdema\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\http-client\1.0.12\http-client-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\authentication\1.0.12\authentication-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\api-client-library\1.0.12\api-client-library-1.0.12.jar;C:\Users\mdema\.m2\repository\net\lingala\zip4j\zip4j\2.6.3\zip4j-2.6.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\mdema"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre"/>
+    <property name="basedir" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics"/>
+    <property name="file.separator" value="\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\mdema\AppData\Local\Temp\surefire3039921865100350764\surefirebooter905823369865259483.jar"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\resources.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\rt.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\sunrsasign.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\jsse.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\jce.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\charsets.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\jfr.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\classes"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_265-b01"/>
+    <property name="user.name" value="mdema"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\endorsed"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\mdema\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-8/issues/"/>
+    <property name="java.io.tmpdir" value="C:\Users\mdema\AppData\Local\Temp\"/>
+    <property name="java.version" value="1.8.0_265"/>
+    <property name="user.dir" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Amazon Corretto\jdk1.8.0_265\bin;C:\Program Files (x86)\NetSarang\Xftp 6\;C:\Program Files (x86)\NetSarang\Xlpd 6\;C:\Program Files (x86)\NetSarang\Xshell 6\;C:\Program Files (x86)\NetSarang\Xmanager 6\;C:\Python38\Scripts\;C:\Python38\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\Yarn\bin\;C:\Go\bin;C:\Program Files\Calibre2\;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Lua\5.1;C:\Program Files (x86)\Lua\5.1\clibs;C:\ProgramData\chocolatey\lib\maven\apache-maven-3.6.3\bin;;C:\Users\mdema\AppData\Local\Microsoft\WindowsApps;C:\Users\mdema\AppData\Local\Yarn\bin;C:\Users\mdema\go\bin;C:\tools\Cmder;C:\tools\mysql\current\bin;C:\Users\mdema\AppData\Roaming\Python\Python38\Scripts;C:\Users\mdema\AppData\Roaming\npm;C:\tools\neovim\Neovim\bin;C:\Program Files\CMake\bin;C:\Users\mdema\.javafx\javafx-sdk-11.0.2\lib;C:\Program Files\R\R-4.0.2\bin\i386;C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;C:\Program Files (x86)\GitHub CLI\;C:\tools\dart-sdk\bin;C:\Users\mdema\AppData\Roaming\Pub\Cache\bin;C:\tools\bin;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Amazon.com Inc."/>
+    <property name="java.vm.version" value="25.265-b01"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="shouldAnswerWithTrue" classname="qualtrics.AppTest" time="0.002"/>
+</testsuite>
