@@ -1,64 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="qualtrics.AppTest" time="0.045" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="qualtrics.AppTest" time="0.109" tests="1" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="sun.desktop" value="windows"/>
-    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
-    <property name="file.encoding.pkg" value="sun.io"/>
-    <property name="java.specification.version" value="1.8"/>
-    <property name="sun.cpu.isalist" value="amd64"/>
-    <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\test-classes;C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\classes;C:\Users\mdema\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\mdema\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\http-client\1.0.12\http-client-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\authentication\1.0.12\authentication-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\api-client-library\1.0.12\api-client-library-1.0.12.jar;C:\Users\mdema\.m2\repository\net\lingala\zip4j\zip4j\2.6.3\zip4j-2.6.3.jar;"/>
-    <property name="java.vm.vendor" value="Amazon.com Inc."/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/test-classes:/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/classes:/home/mdema/.m2/repository/com/qualtrics/api/sdk/http-client/1.0.12/http-client-1.0.12.jar:/home/mdema/.m2/repository/com/qualtrics/api/sdk/authentication/1.0.12/authentication-1.0.12.jar:/home/mdema/.m2/repository/com/qualtrics/api/sdk/api-client-library/1.0.12/api-client-library-1.0.12.jar:/home/mdema/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/mdema/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/mdema/.m2/repository/net/lingala/zip4j/zip4j/2.6.3/zip4j-2.6.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-csv/2.11.3/jackson-dataformat-csv-2.11.3.jar:/home/mdema/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar:/home/mdema/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/mdema/.m2/repository/com/opencsv/opencsv/5.3/opencsv-5.3.jar:/home/mdema/.m2/repository/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar:/home/mdema/.m2/repository/org/apache/commons/commons-text/1.9/commons-text-1.9.jar:/home/mdema/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/home/mdema/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/home/mdema/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/mdema/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
-    <property name="user.timezone" value="America/Los_Angeles"/>
-    <property name="java.vm.specification.version" value="1.8"/>
-    <property name="os.name" value="Windows 10"/>
-    <property name="user.country" value="CA"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Linux"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\mdema\AppData\Local\Temp\surefire3039921865100350764\surefirebooter905823369865259483.jar C:\Users\mdema\AppData\Local\Temp\surefire3039921865100350764 2020-10-04T19-32-43_456-jvmRun1 surefire5390465426527453227tmp surefire_06701927298382132306tmp"/>
-    <property name="surefire.test.class.path" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\test-classes;C:\Users\mdema\.code\qualtrics-lambda\qualtrics\target\classes;C:\Users\mdema\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\mdema\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\http-client\1.0.12\http-client-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\authentication\1.0.12\authentication-1.0.12.jar;C:\Users\mdema\.m2\repository\com\qualtrics\api\sdk\api-client-library\1.0.12\api-client-library-1.0.12.jar;C:\Users\mdema\.m2\repository\net\lingala\zip4j\zip4j\2.6.3\zip4j-2.6.3.jar;"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/surefire/surefirebooter9289410579357128764.jar /mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/surefire 2021-01-12T20-06-02_696-jvmRun1 surefire16129428090571384896tmp surefire_09239495199129690599tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/test-classes:/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/classes:/home/mdema/.m2/repository/com/qualtrics/api/sdk/http-client/1.0.12/http-client-1.0.12.jar:/home/mdema/.m2/repository/com/qualtrics/api/sdk/authentication/1.0.12/authentication-1.0.12.jar:/home/mdema/.m2/repository/com/qualtrics/api/sdk/api-client-library/1.0.12/api-client-library-1.0.12.jar:/home/mdema/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/mdema/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/mdema/.m2/repository/net/lingala/zip4j/zip4j/2.6.3/zip4j-2.6.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar:/home/mdema/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-csv/2.11.3/jackson-dataformat-csv-2.11.3.jar:/home/mdema/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar:/home/mdema/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/mdema/.m2/repository/com/opencsv/opencsv/5.3/opencsv-5.3.jar:/home/mdema/.m2/repository/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar:/home/mdema/.m2/repository/org/apache/commons/commons-text/1.9/commons-text-1.9.jar:/home/mdema/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/home/mdema/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/home/mdema/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/mdema/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\mdema"/>
+    <property name="user.home" value="/home/mdema"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.home" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre"/>
-    <property name="basedir" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics"/>
-    <property name="file.separator" value="\"/>
+    <property name="java.version.date" value="2020-11-04"/>
+    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
-    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\mdema\AppData\Local\Temp\surefire3039921865100350764\surefirebooter905823369865259483.jar"/>
-    <property name="sun.boot.class.path" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\resources.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\rt.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\sunrsasign.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\jsse.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\jce.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\charsets.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\jfr.jar;C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\classes"/>
-    <property name="user.script" value=""/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics/target/surefire/surefirebooter9289410579357128764.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="1.8.0_265-b01"/>
+    <property name="java.runtime.version" value="11.0.9.1+1-Ubuntu-0ubuntu1.20.04"/>
     <property name="user.name" value="mdema"/>
-    <property name="path.separator" value=";"/>
-    <property name="os.version" value="10.0"/>
-    <property name="java.endorsed.dirs" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\endorsed"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="4.19.104-microsoft-standard"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
-    <property name="file.encoding" value="Cp1252"/>
+    <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="localRepository" value="C:\Users\mdema\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-8/issues/"/>
-    <property name="java.io.tmpdir" value="C:\Users\mdema\AppData\Local\Temp\"/>
-    <property name="java.version" value="1.8.0_265"/>
-    <property name="user.dir" value="C:\Users\mdema\.code\qualtrics-lambda\qualtrics"/>
+    <property name="localRepository" value="/home/mdema/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-lts"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="11.0.9.1"/>
+    <property name="user.dir" value="/mnt/c/Users/mdema/.code/qualtrics-lambda/qualtrics"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
-    <property name="sun.os.patch.level" value=""/>
-    <property name="java.library.path" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Amazon Corretto\jdk1.8.0_265\bin;C:\Program Files (x86)\NetSarang\Xftp 6\;C:\Program Files (x86)\NetSarang\Xlpd 6\;C:\Program Files (x86)\NetSarang\Xshell 6\;C:\Program Files (x86)\NetSarang\Xmanager 6\;C:\Python38\Scripts\;C:\Python38\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\Yarn\bin\;C:\Go\bin;C:\Program Files\Calibre2\;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Lua\5.1;C:\Program Files (x86)\Lua\5.1\clibs;C:\ProgramData\chocolatey\lib\maven\apache-maven-3.6.3\bin;;C:\Users\mdema\AppData\Local\Microsoft\WindowsApps;C:\Users\mdema\AppData\Local\Yarn\bin;C:\Users\mdema\go\bin;C:\tools\Cmder;C:\tools\mysql\current\bin;C:\Users\mdema\AppData\Roaming\Python\Python38\Scripts;C:\Users\mdema\AppData\Roaming\npm;C:\tools\neovim\Neovim\bin;C:\Program Files\CMake\bin;C:\Users\mdema\.javafx\javafx-sdk-11.0.2\lib;C:\Program Files\R\R-4.0.2\bin\i386;C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;C:\Program Files (x86)\GitHub CLI\;C:\tools\dart-sdk\bin;C:\Users\mdema\AppData\Roaming\Pub\Cache\bin;C:\tools\bin;."/>
-    <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.vendor" value="Amazon.com Inc."/>
-    <property name="java.vm.version" value="25.265-b01"/>
-    <property name="java.ext.dirs" value="C:\Program Files\Amazon Corretto\jdk1.8.0_265\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="11.0.9.1+1-Ubuntu-0ubuntu1.20.04"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="52.0"/>
+    <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="qualtrics.AppTest" time="0.002"/>
+  <testcase name="shouldAnswerWithTrue" classname="qualtrics.AppTest" time="0.003"/>
 </testsuite>
