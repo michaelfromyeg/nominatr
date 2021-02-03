@@ -5,6 +5,7 @@ import net.lingala.zip4j.exception.ZipException;
 
 import com.opencsv.CSVReader;
 
+import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,10 +28,23 @@ public class Survey {
       }
   }
 
+  public void normalizeFileName() {
+    for(File file: new File("./qualtrics/out").listFiles()) {
+        String extension = "";
+        int i = file.getName().lastIndexOf('.');
+        if (i > 0) {
+            extension = file.getName().substring(i+1);
+        }
+        if (!file.isDirectory() && extension.length() > 0 && extension.equals("csv")) {
+            file.renameTo(new File("./qualtrics/out/survey.csv"));
+        }
+    }
+  }
+
   public List<Response> fetch(String fileName) throws Exception {
     try {
         List<Response> responses = new ArrayList<>();
-        CSVReader reader = new CSVReader(new FileReader("./qualtrics/out/Test Survey.csv"));
+        CSVReader reader = new CSVReader(new FileReader("./qualtrics/out/survey.csv"));
         List<String[]> r = reader.readAll();
 
         // Collect responses, beginning at the third row (skipping Qualtrics preamble)

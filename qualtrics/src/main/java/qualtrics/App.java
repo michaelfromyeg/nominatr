@@ -1,6 +1,6 @@
 package qualtrics;
 
-
+import java.io.File;
 import java.util.List;
 
 /**
@@ -9,8 +9,7 @@ import java.util.List;
 public class App {
 
     // Qualtrics
-    private static String fileName;
-    private static boolean shouldDownload = false;
+    private static boolean shouldDownload = true;
 
     // Process zip file
     private static List<Response> responses; 
@@ -24,8 +23,10 @@ public class App {
                 System.out.println("Gathering Qualtrics survey data...");
                 Qualtrics q = new Qualtrics();
                 q.connect();
-                fileName = q.download();
+                q.download();
+                q.normalizeFileName();
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Couldn't download data... exiting!");
                 System.exit(1);
             }
@@ -36,8 +37,10 @@ public class App {
             try {
                 System.out.println("Unzipping and reading in Qualtrics survey data...");
                 Survey s = new Survey();
-                // s.unzip(fileName == null ? "Test Survey.csv" : fileName);
-                responses = s.fetch(fileName == null ? "./qualtrics/out/Test Survey.csv" : fileName);
+                if (shouldDownload)
+                    s.unzip("./qualtrics/out/survey.zip");
+                s.normalizeFileName();
+                responses = s.fetch("./qualtrics/out/survey.csv");
             } catch (Exception e) {
                 System.out.println("Couldn't extract or read survey... exiting!");
                 System.exit(1);
@@ -61,13 +64,36 @@ public class App {
 
         // Contact recipients with relevant findings
         try {
-            System.out.println("Contacting election participants... (not implemented yet)");
+            System.out.println("Contacting election participants...");
+            Contact c = new Contact();
+            c.contact();
         } catch (Exception e) {
             System.out.println("Couldn't contact election participants... exiting!");
             System.exit(1);
         }
 
+        try {
+            System.out.println("Cleaning up output folder...");
+            cleanUp();
+        } catch (Exception e) {
+            System.out.println("Couldn't clean up the output folder... exiting!");
+            System.exit(1);
+        }
+
         System.out.println("Finished!");
         System.exit(0);
+    }
+
+    public static void cleanUp() {
+        for(File file: new File("./qualtrics/out").listFiles()) {
+            String extension = "";
+            int i = file.getName().lastIndexOf('.');
+            if (i > 0) {
+                extension = file.getName().substring(i+1);
+            }
+            if (!file.isDirectory() && extension.length() > 0 && (extension.equals("zip") || extension.equals("csv"))) {
+                file.delete();
+            }
+        }
     }
 }
