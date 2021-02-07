@@ -10,6 +10,8 @@ public class Nominee {
   private String studentNumber;
   private String major;
   private String runningFor;
+  private int nominationTally;
+  private String runningForPositionName;
 
   public Nominee(String fullName, String email, String studentNumber, String major, String runningFor) {
     this.fullName = fullName;
@@ -17,6 +19,27 @@ public class Nominee {
     this.studentNumber = studentNumber;
     this.major = major;
     this.runningFor = runningFor;
+    this.nominationTally = 0;
+  }
+
+  public void incrementTally() {
+    this.nominationTally += 1;
+  }
+
+  public void setTally(int tally) {
+    this.nominationTally = tally;
+  }
+
+  public int getTally() {
+    return this.nominationTally;
+  }
+
+  public void setRunningForPositionName(String position) {
+    this.runningForPositionName = position;
+  }
+
+  public String getRunningForPositionName() {
+    return this.runningForPositionName;
   }
 
   // Getters and setters

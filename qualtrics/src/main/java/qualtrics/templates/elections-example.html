@@ -12,18 +12,14 @@
       <th style="border: 1px solid black; padding: 5px;">Nominee</th>
       <th style="border: 1px solid black; padding: 5px;">Tally</th>
     </tr>
-    <#list nominees>
-      <#items as column1A, column2A>
-      <tr>
-        <td style="border: 1px solid black; padding: 5px;">
-          ${column1A}
-        </td>
-        <td style="border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle;">
-          ${column2A}
-        </td>
-      </tr>
-      </#items>
-    </#list>
+    <tr>
+      <td style="border: 1px solid black; padding: 5px;">
+        John Smith for AMS Representative
+      </td>
+      <td style="border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle;">
+        3
+      </td>
+    </tr>
   </table>
   <br />
   <table style="border: 1px solid black; border-collapse: collapse;">
@@ -32,20 +28,15 @@
       <th style="border: 1px solid black; padding: 5px;">Nominator</th>
       <th style="border: 1px solid black; padding: 5px;">For</th>
     </tr>
-    <#list nominators>
-      <#items as column1B, column2B>
-      <tr>
-        <td style="border: 1px solid black; padding: 5px;">
-          ${column1B}
-        </td>
-        <td style="border: 1px solid black; padding: 5px;">
-          ${column2B}
-        </td>
-      </tr>
-      </#items>
-    </#list>
+    <tr>
+      <td style="border: 1px solid black; padding: 5px;">
+        Jane Doe
+      </td>
+      <td style="border: 1px solid black; padding: 5px;">
+        John Smith
+      </td>
+    </tr>
   </table>
-  <br />
   <p>Sincerely,</p>
   <p><b>Michael, Andrew, Arian, and Christina</b></p>
   <p><i>Elections Administrators</i>
