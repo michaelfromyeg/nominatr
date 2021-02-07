@@ -37,6 +37,6 @@
   <p><i>Elections Administrators</i>
   <p>UBC Science Undergraduate Society</p>
   <p><a href="mailto:elections@sus.ubc.ca">elections@sus.ubc.ca</a> | <a href="https://sus.ubc.ca">www.sus.ubc.ca</a></p>
-  <img src="https://via.placeholder.com/200x150" />
+  <img src="https://ibb.co/G5BKnSR" width="150" height="150" />
 </body>
 </html>
