@@ -76,8 +76,8 @@ public class Election {
       if (r.getQ1().toCharArray()[0] == '1') {
         String position = positions.get(Integer.parseInt(r.getQ10()));
         App.getLogger().info(r.getQ4() + " is running for " + position);
-        Nominee n = new Nominee(r.getQ4(), r.getQ6(),
-            r.getQ5(), r.getQ9(), r.getQ10());
+        Nominee n = new Nominee(r.getQ4().trim(), r.getQ6().trim(),
+            r.getQ5().trim(), r.getQ9().trim(), r.getQ10().trim());
         n.setRunningForPositionName(position);
         nominees.add(n);
       }
@@ -92,8 +92,8 @@ public class Election {
               + ". They were probably a SUS Candidate last year.");
           continue;
         } else {
-          nominators.add(new Nominator(r.getQ11(), r.getQ19(),
-              r.getQ12(), r.getQ13(), r.getQ15(), r.getQ16()));
+          nominators.add(new Nominator(r.getQ11().trim(), r.getQ19().trim(),
+              r.getQ12().trim(), r.getQ13().trim(), r.getQ15().trim(), r.getQ16().trim()));
         }
       }
     }
@@ -114,12 +114,14 @@ public class Election {
             break;
           }
           nee.incrementTally();
+          nee.addNominator(nom);
           nominationValid = true;
           break;
         }
       }
       // If no nominee was found, try a fuzzy match instead
       if (!nominationValid) {
+        App.getLogger().info("No nomination found... trying again!");
         for (Nominee nee : nominees) {
           if (Utils.fuzzyEquals(nom.getNominatingName(), nee.getFullName())) {
             if (nominationValid) {
@@ -129,6 +131,9 @@ public class Election {
                 + nom.getNominatingName()
                 + " " + nee.getFullName());
             nee.incrementTally();
+            nee.addNominator(nom);
+            nom.setNominatingName(nee.getFullName()
+                + " (corrected from " + nom.getNominatingName() + ")");
             nominationValid = true;
             break;
           }

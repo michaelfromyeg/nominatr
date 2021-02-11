@@ -1,5 +1,8 @@
 package qualtrics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An object representing someone who is running for a position.
  */
@@ -12,6 +15,7 @@ public class Nominee {
   private String runningFor;
   private int nominationTally;
   private String runningForPositionName;
+  private List<Nominator> nominators;
 
   /**
    * An all-field constructor for a nominee.
@@ -33,10 +37,34 @@ public class Nominee {
     this.major = major;
     this.runningFor = runningFor;
     this.nominationTally = 0;
+    this.nominators = new ArrayList<>();
   }
 
   public void incrementTally() {
     this.nominationTally += 1;
+  }
+
+  /**
+   * Get a nominator by their name.
+   *
+   * @param name their name
+   * @return a Nominator object
+   */
+  public Nominator getNominatorByName(String name) {
+    for (Nominator n : this.nominators) {
+      if (name.equals(n.getFullName())) {
+        return n;
+      }
+    }
+    return null;
+  }
+
+  public List<Nominator> getNominators() {
+    return this.nominators;
+  }
+
+  public void addNominator(Nominator n) {
+    this.nominators.add(n);
   }
 
   public void setTally(int tally) {

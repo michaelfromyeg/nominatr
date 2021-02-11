@@ -36,7 +36,7 @@ public final class App {
   /**
   * Whether or not emails should be sent.
   */
-  private static boolean shouldContact = false;
+  private static boolean shouldContact = true;
 
   private App() {
     // Empty constructor for main class

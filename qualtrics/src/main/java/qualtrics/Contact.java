@@ -310,10 +310,8 @@ public class Contact {
         + nominee.getRunningForPositionName(),
         nominee.getTally() + "");
     summaryMap.put("nominees", nomineeMap);
-    for (Nominator n : e.getNominators()) {
-      if (n.getNominatingName().equals(nominee.getFullName())) {
-        theirNominatorsMap.put(n.getFullName(), n.getNominatingName());
-      }
+    for (Nominator n : nominee.getNominators()) {
+      theirNominatorsMap.put(n.getFullName(), n.getNominatingName());
     }
     summaryMap.put("nominators", theirNominatorsMap);
     return summaryMap;

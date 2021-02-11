@@ -26,7 +26,7 @@ public final class Utils {
   public static boolean fuzzyEquals(final String a, final String b) {
     LevenshteinDistance levInstance = new LevenshteinDistance();
     int dist = levInstance.apply(a, b);
-    return dist < FUZZY_THRESHHOLD;
+    return dist <= FUZZY_THRESHHOLD;
   }
 
 }
