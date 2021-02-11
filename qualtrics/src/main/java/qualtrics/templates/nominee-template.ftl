@@ -51,7 +51,7 @@
     </#list>
   </table>
   <p>If you have any questions, or anything looks off, don't hestiate to reach out to the Elections team.</p>
-  <p style="font-size: small">Disclaimer: this project was developed by SUS to act as a way of facilitating nominations during a remote election. It is completely open-source; you may view the source-code <a href="https://github.com/michaelfromyeg/qualtrics-lambda">here</a>. No data is held by the program, as it only relays data from Qualtrics. The project itself is hosted on Canadian servers.</p>
+  <p>Disclaimer: this project was developed by SUS to act as a way of facilitating nominations during a remote election. It is completely open-source; you may view the source-code <a href="https://github.com/michaelfromyeg/qualtrics-lambda">here</a>. No data is held by the program, as it only relays data from Qualtrics. The project itself is hosted on Canadian servers.</p>
   <br />
   <p>Sincerely,</p>
   <p><b>Michael, Andrew, Arian, and Christina</b></p>

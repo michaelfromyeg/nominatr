@@ -1,8 +1,9 @@
 package qualtrics;
 
-/*
- * A class running someone who is nominating someone else for a position
- */
+/**
+ * A data class represneting someone who nominated someone else.
+ *
+*/
 public class Nominator {
 
   private String fullName;
@@ -12,7 +13,21 @@ public class Nominator {
   private String nominatingName;
   private String nominatingFor;
 
-  public Nominator(String fullName, String email, String studentNumber, String major, String nominatingName, String nominatingFor) {
+  /**
+   * Construct a nominator.
+   * @param fullName their name
+   * @param email their email
+   * @param studentNumber their student number
+   * @param major their major
+   * @param nominatingName the person their nominating
+   * @param nominatingFor what they're nomianting them for
+   */
+  public Nominator(String fullName,
+      String email,
+      String studentNumber,
+      String major,
+      String nominatingName,
+      String nominatingFor) {
     this.fullName = fullName;
     this.email = email;
     this.studentNumber = studentNumber;
@@ -70,18 +85,18 @@ public class Nominator {
   public void setNominatingFor(String nominatingFor) {
     this.nominatingFor = nominatingFor;
   }
-  
+
   // toString override
   @Override
   public String toString() {
-    return "{" +
-      " fullName='" + getFullName() + "'" +
-      ", email='" + getEmail() + "'" +
-      ", studentNumber='" + getStudentNumber() + "'" +
-      ", major='" + getMajor() + "'" +
-      ", nominatingName='" + getNominatingName() + "'" +
-      ", nominatingFor='" + getNominatingFor() + "'" +
-      "}";
+    return "{"
+      + " fullName='" + getFullName() + "'"
+      + ", email='" + getEmail() + "'"
+      +  ", studentNumber='" + getStudentNumber() + "'"
+      + ", major='" + getMajor() + "'"
+      + ", nominatingName='" + getNominatingName() + "'"
+      + ", nominatingFor='" + getNominatingFor() + "'"
+      + "}";
   }
 
 }

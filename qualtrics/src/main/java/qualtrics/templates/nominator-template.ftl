@@ -30,13 +30,13 @@
     </#list>
   </table>
   <p>If you have any questions, or anything looks off, don't hestiate to reach out!</p>
-  <p style="font-size: small">Disclaimer: this project was developed by SUS to act as a way of facilitating nominations during a remote election. It is completely open-source; you may view the source-code <a href="https://github.com/michaelfromyeg/qualtrics-lambda">here</a>. No data is held by the program, as it only relays data from Qualtrics. The project itself is hosted on Canadian servers.</p>
+  <p>Disclaimer: this project was developed by SUS to act as a way of facilitating nominations during a remote election. It is completely open-source; you may view the source-code <a href="https://github.com/michaelfromyeg/qualtrics-lambda">here</a>. No data is held by the program, as it only relays data from Qualtrics. The project itself is hosted on Canadian servers.</p>
   <br />
   <p>Sincerely,</p>
   <p><b>Michael, Andrew, Arian, and Christina</b></p>
   <p><i>Elections Administrators</i>
   <p>UBC Science Undergraduate Society</p>
   <p><a href="mailto:elections@sus.ubc.ca">elections@sus.ubc.ca</a> | <a href="https://sus.ubc.ca">www.sus.ubc.ca</a></p>
-  <img src="https://i.ibb.co/Vqr7J4T/sus-logo.png" width="300" height="75" alt="SUS Logo" />  <img src="https://ibb.co/G5BKnSR" width="150" height="150" />
+  <img src="https://i.ibb.co/Vqr7J4T/sus-logo.png" width="300" height="75" alt="SUS Logo" />
 </body>
 </html>

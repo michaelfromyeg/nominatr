@@ -1,7 +1,7 @@
 package qualtrics;
 
-/*
- * A class representing someone who is running for a position
+/**
+ * An object representing someone who is running for a position.
  */
 public class Nominee {
 
@@ -13,7 +13,20 @@ public class Nominee {
   private int nominationTally;
   private String runningForPositionName;
 
-  public Nominee(String fullName, String email, String studentNumber, String major, String runningFor) {
+  /**
+   * An all-field constructor for a nominee.
+   *
+   * @param fullName their name
+   * @param email their email
+   * @param studentNumber their student number
+   * @param major their major
+   * @param runningFor what they're running for
+   */
+  public Nominee(String fullName,
+      String email,
+      String studentNumber,
+      String major,
+      String runningFor) {
     this.fullName = fullName;
     this.email = email;
     this.studentNumber = studentNumber;
@@ -83,17 +96,17 @@ public class Nominee {
   public void setRunningFor(String runningFor) {
     this.runningFor = runningFor;
   }
-  
+
   // toString override
   @Override
   public String toString() {
-    return "{" +
-      " fullName='" + getFullName() + "'" +
-      ", email='" + getEmail() + "'" +
-      ", studentNumber='" + getStudentNumber() + "'" +
-      ", major='" + getMajor() + "'" +
-      ", runningFor='" + getRunningFor() + "'" +
-      "}";
+    return "{"
+      + " fullName='" + getFullName() + "'"
+      + ", email='" + getEmail() + "'"
+      + ", studentNumber='" + getStudentNumber() + "'"
+      + ", major='" + getMajor() + "'"
+      + ", runningFor='" + getRunningFor() + "'"
+      + "}";
   }
 
 }
