@@ -7,6 +7,7 @@ public class Response {
 
   private String startDate;
   private String endDate;
+  private String responseType;
   private String status;
   private String ipAddress;
   private String progress;
@@ -22,24 +23,31 @@ public class Response {
   private String locationLongitude;
   private String distributionChannel;
   private String userLang;
-  private String q1; // Nominee or nominator
+  private String nomineeOrNominator; // Nominee or nominator
 
   // NOMINEE
-  private String q4; // Full name
-  private String q5; // Student number
-  private String q6; // Email
-  private String q7; // Phone number
-  private String q8; // Year (eg: 1,2,3,4)
-  private String q9; // Major/department
-  private String q10; // Running for...
+  private String nomineeFullName; // Full name
+  private String nomineeStudentNumber; // Student number
+  private String nomineeEmail; // Email
+  private String nomineePhoneNumber; // Phone number
+  private String nomineeYear; // Year (eg: 1,2,3,4)
+  private String nomineeMajor; // Major/department
+  private String nomineeRunningFor; // Running for...
 
   // NOMINATOR
-  private String q11; // Full name
-  private String q12; // Student number
-  private String q19; // Email
-  private String q13; // Major
-  private String q15; // I am nominating...
-  private String q16; // For the position of...
+  private String nominatorFullName; // Full name
+  private String nominatorStudentNumber; // Student number
+  private String nominatorEmail; // Email
+  private String nominatorMajor; // Major
+  private String nominatorNominatingName; // I am nominating...
+  private String nominatorNominatingPosition; // For the position of...
+
+  /**
+   *  Return an empty instance that will need to be filled via setters.
+   */
+  public Response() {
+    // Empty constructor
+  }
 
   /**
    * Build a Qualtrics response object.
@@ -61,20 +69,20 @@ public class Response {
    * @param locationLongitude locationLongitude
    * @param distributionChannel distributionChannel
    * @param userLang userLang
-   * @param q1 q1
-   * @param q4 q4
-   * @param q5 q5
-   * @param q6 q6
-   * @param q7 q7
-   * @param q8 q8
-   * @param q9 q9
-   * @param q10 q10
-   * @param q11 q11
-   * @param q12 q12
-   * @param q19 q19
-   * @param q13 q13
-   * @param q15 q15
-   * @param q16 q16
+   * @param nomineeOrNominator q1
+   * @param nomineeFullName q4
+   * @param nomineeStudentNumber q5
+   * @param nomineeEmail q6
+   * @param nomineePhoneNumber q7
+   * @param nomineeYear q8
+   * @param nomineeMajor q9
+   * @param nomineeRunningFor q10
+   * @param nominatorFullName q11
+   * @param nominatorStudentNumber q12
+   * @param nominatorEmail q19
+   * @param nominatorMajor q13
+   * @param nominatorNominatingName q15
+   * @param nominatorNominatingPosition q16
    */
   public Response(String startDate,
       String endDate,
@@ -93,20 +101,20 @@ public class Response {
       String locationLongitude,
       String distributionChannel,
       String userLang,
-      String q1,
-      String q4,
-      String q5,
-      String q6,
-      String q7,
-      String q8,
-      String q9,
-      String q10,
-      String q11,
-      String q12,
-      String q19,
-      String q13,
-      String q15,
-      String q16) {
+      String nomineeOrNominator,
+      String nomineeFullName,
+      String nomineeStudentNumber,
+      String nomineeEmail,
+      String nomineePhoneNumber,
+      String nomineeYear,
+      String nomineeMajor,
+      String nomineeRunningFor,
+      String nominatorFullName,
+      String nominatorStudentNumber,
+      String nominatorEmail,
+      String nominatorMajor,
+      String nominatorNominatingName,
+      String nominatorNominatingPosition) {
     this.startDate = startDate;
     this.endDate = endDate;
     this.status = status;
@@ -124,20 +132,129 @@ public class Response {
     this.locationLongitude = locationLongitude;
     this.distributionChannel = distributionChannel;
     this.userLang = userLang;
-    this.q1 = q1;
-    this.q4 = q4;
-    this.q5 = q5;
-    this.q6 = q6;
-    this.q7 = q7;
-    this.q8 = q8;
-    this.q9 = q9;
-    this.q10 = q10;
-    this.q11 = q11;
-    this.q12 = q12;
-    this.q19 = q19;
-    this.q13 = q13;
-    this.q15 = q15;
-    this.q16 = q16;
+    this.nomineeOrNominator = nomineeOrNominator;
+    this.nomineeFullName = nomineeFullName;
+    this.nomineeStudentNumber = nomineeStudentNumber;
+    this.nomineeEmail = nomineeEmail;
+    this.nomineePhoneNumber = nomineePhoneNumber;
+    this.nomineeYear = nomineeYear;
+    this.nomineeMajor = nomineeMajor;
+    this.nomineeRunningFor = nomineeRunningFor;
+    this.nominatorFullName = nominatorFullName;
+    this.nominatorStudentNumber = nominatorStudentNumber;
+    this.nominatorEmail = nominatorEmail;
+    this.nominatorMajor = nominatorMajor;
+    this.nominatorNominatingName = nominatorNominatingName;
+    this.nominatorNominatingPosition = nominatorNominatingPosition;
+  }
+
+  /**
+   * Match a value to a field by a string-form field name key.
+   *
+   * @param value a field name, as a string
+   * @throws Exception if value not found in valid field names
+   */
+  public void setByFieldNameString(String fieldName, String value) throws Exception {
+    if (fieldName == null) {
+      return;
+    }
+    switch (fieldName) {
+      case "startDate":
+        this.setStartDate(value);
+        break;
+      case "endDate":
+        this.setEndDate(value);
+        break;
+      case "responseType":
+        this.setResponseType(value);
+        break;
+      case "ipAddress":
+        this.setIpAddress(value);
+        break;
+      case "progress":
+        this.setProgress(value);
+        break;
+      case "duration":
+        this.setDuration(value);
+        break;
+      case "finished":
+        this.setFinished(value);
+        break;
+      case "recordedDate":
+        this.setRecordedDate(value);
+        break;
+      case "responseId":
+        this.setResponseId(value);
+        break;
+      case "lastName":
+        this.setLastName(value);
+        break;
+      case "firstName":
+        this.setFirstName(value);
+        break;
+      case "recipientEmail":
+        this.setReceipientEmail(value);
+        break;
+      case "externalReference":
+        this.setExternalReference(value);
+        break;
+      case "locationLatitude":
+        this.setLocationLatitude(value);
+        break;
+      case "locationLongitude":
+        this.setLocationLongitude(value);
+        break;
+      case "distributionChannel":
+        this.setDistributionChannel(value);
+        break;
+      case "userLang":
+        this.setUserLang(value);
+        break;
+      case "nomineeOrNominator":
+        this.setNomineeOrNominator(value);
+        break;
+      case "nomineeFullName":
+        this.setNomineeFullName(value);
+        break;
+      case "nomineeStudentNumber":
+        this.setNomineeStudentNumber(value);
+        break;
+      case "nomineeEmail":
+        this.setNomineeEmail(value);
+        break;
+      case "nomineePhoneNumber":
+        this.setNomineePhoneNumber(value);
+        break;
+      case "nomineeYear":
+        this.setNomineeYear(value);
+        break;
+      case "nomineeMajor":
+        this.setNomineeMajor(value);
+        break;
+      case "nomineeRunningFor":
+        this.setNomineeRunningFor(value);
+        break;
+      case "nominatorFullName":
+        this.setNominatorFullName(value);
+        break;
+      case "nominatorStudentNumber":
+        this.setNominatorStudentNumber(value);
+        break;
+      case "nominatorEmail":
+        this.setNominatorEmail(value);
+        break;
+      case "nominatorMajor":
+        this.setNominatorMajor(value);
+        break;
+      case "nominatorNominatingName":
+        this.setNominatorNominatingName(value);
+        break;
+      case "nominatorNominatingPosition":
+        this.setNominatorNominatingPosition(value);
+        break;
+      default:
+        throw new Exception("Invalid machine name passed to setByFieldNameString");
+    }
   }
 
   // Getters and setters
@@ -156,6 +273,10 @@ public class Response {
 
   public void setEndDate(String endDate) {
     this.endDate = endDate;
+  }
+
+  public void setResponseType(String responseType) {
+    this.responseType = responseType;
   }
 
   public String getStatus() {
@@ -278,115 +399,115 @@ public class Response {
     this.userLang = userLang;
   }
 
-  public String getQ1() {
-    return this.q1;
+  public String getNomineeOrNominator() {
+    return this.nomineeOrNominator;
   }
 
-  public void setQ1(String q1) {
-    this.q1 = q1;
+  public void setNomineeOrNominator(String nomineeOrNominator) {
+    this.nomineeOrNominator = nomineeOrNominator;
   }
 
-  public String getQ4() {
-    return this.q4;
+  public String getNomineeFullName() {
+    return this.nomineeFullName;
   }
 
-  public void setQ4(String q4) {
-    this.q4 = q4;
+  public void setNomineeFullName(String nomineeFullName) {
+    this.nomineeFullName = nomineeFullName;
   }
 
-  public String getQ5() {
-    return this.q5;
+  public String getNomineeStudentNumber() {
+    return this.nomineeStudentNumber;
   }
 
-  public void setQ5(String q5) {
-    this.q5 = q5;
+  public void setNomineeStudentNumber(String nomineeStudentNumber) {
+    this.nomineeStudentNumber = nomineeStudentNumber;
   }
 
-  public String getQ6() {
-    return this.q6;
+  public String getNomineeEmail() {
+    return this.nomineeEmail;
   }
 
-  public void setQ6(String q6) {
-    this.q6 = q6;
+  public void setNomineeEmail(String nomineeEmail) {
+    this.nomineeEmail = nomineeEmail;
   }
 
-  public String getQ7() {
-    return this.q7;
+  public String getNomineePhoneNumber() {
+    return this.nomineePhoneNumber;
   }
 
-  public void setQ7(String q7) {
-    this.q7 = q7;
+  public void setNomineePhoneNumber(String nomineePhoneNumber) {
+    this.nomineePhoneNumber = nomineePhoneNumber;
   }
 
-  public String getQ8() {
-    return this.q8;
+  public String getNomineeYear() {
+    return this.nomineeYear;
   }
 
-  public void setQ8(String q8) {
-    this.q8 = q8;
+  public void setNomineeYear(String nomineeYear) {
+    this.nomineeYear = nomineeYear;
   }
 
-  public String getQ9() {
-    return this.q9;
+  public String getNomineeMajor() {
+    return this.nomineeMajor;
   }
 
-  public void setQ9(String q9) {
-    this.q9 = q9;
+  public void setNomineeMajor(String nomineeMajor) {
+    this.nomineeMajor = nomineeMajor;
   }
 
-  public String getQ10() {
-    return this.q10;
+  public String getNomineeRunningFor() {
+    return this.nomineeRunningFor;
   }
 
-  public void setQ10(String q10) {
-    this.q10 = q10;
+  public void setNomineeRunningFor(String nomineeRunningFor) {
+    this.nomineeRunningFor = nomineeRunningFor;
   }
 
-  public String getQ11() {
-    return this.q11;
+  public String getNominatorFullName() {
+    return this.nominatorFullName;
   }
 
-  public void setQ11(String q11) {
-    this.q11 = q11;
+  public void setNominatorFullName(String nominatorFullName) {
+    this.nominatorFullName = nominatorFullName;
   }
 
-  public String getQ12() {
-    return this.q12;
+  public String getNominatorStudentNumber() {
+    return this.nominatorStudentNumber;
   }
 
-  public void setQ12(String q12) {
-    this.q12 = q12;
+  public void setNominatorStudentNumber(String nominatorStudentNumber) {
+    this.nominatorStudentNumber = nominatorStudentNumber;
   }
 
-  public String getQ19() {
-    return this.q19;
+  public String getNominatorEmail() {
+    return this.nominatorEmail;
   }
 
-  public void setQ19(String q19) {
-    this.q19 = q19;
+  public void setNominatorEmail(String nominatorEmail) {
+    this.nominatorEmail = nominatorEmail;
   }
 
-  public String getQ13() {
-    return this.q13;
+  public String getNominatorMajor() {
+    return this.nominatorMajor;
   }
 
-  public void setQ13(String q13) {
-    this.q13 = q13;
+  public void setNominatorMajor(String nominatorMajor) {
+    this.nominatorMajor = nominatorMajor;
   }
 
-  public String getQ15() {
-    return this.q15;
+  public String getNominatorNominatingName() {
+    return this.nominatorNominatingName;
   }
 
-  public void setQ15(String q15) {
-    this.q15 = q15;
+  public void setNominatorNominatingName(String nominatorNominatingName) {
+    this.nominatorNominatingName = nominatorNominatingName;
   }
 
-  public String getQ16() {
-    return this.q16;
+  public String getNominatorNominatingPosition() {
+    return this.nominatorNominatingPosition;
   }
 
-  public void setQ16(String q16) {
-    this.q16 = q16;
+  public void setNominatorNominatingPosition(String nominatorNominatingPosition) {
+    this.nominatorNominatingPosition = nominatorNominatingPosition;
   }
 }

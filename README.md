@@ -14,6 +14,7 @@ A tool for UBC students to interact with Qualtrics survey data in real time and 
 - [ ] Create CI/CD pipeline and deploy to AWS (ca-central)
 - [ ] Fill in Javadoc and improve general documentation
 - [ ] Write README and contributing guidelines; provide use-case for other student elections
+- [ ] Validate that one person doesn't nominate 2 people for the same position
 
 ## Notes
 

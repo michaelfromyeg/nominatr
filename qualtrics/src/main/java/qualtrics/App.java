@@ -1,5 +1,6 @@
 package qualtrics;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +20,16 @@ public final class App {
   private static Logger logger;
 
   /**
+   * Global dotenv object.
+   */
+  private static Dotenv dotenv;
+
+  /**
+   * Global filepath.
+   */
+  private static String filePath;
+
+  /**
   * Whether or not in a run, they app should download new data.
   */
   private static boolean shouldDownload = true;
@@ -36,18 +47,29 @@ public final class App {
   /**
   * Whether or not emails should be sent.
   */
-  private static boolean shouldContact = true;
+  private static boolean shouldContact = false;
+
+  /**
+   * Whether or not the download folder should be cleaned up.
+   */
+  private static boolean shouldCleanup = true;
 
   private App() {
-    // Empty constructor for main class
+    // Empty constructor for final class
   }
 
   /**
   * Process elections data and send needed emails.
   *
-  * @param args n/a
+  * @param args Java args
   */
   public static void main(final String[] args) {
+
+    // Setup dotenv
+    createDotenv();
+
+    // Setup filepath
+    createFilePath();
 
     // Setup the logs
     createLogs();
@@ -73,10 +95,10 @@ public final class App {
         logger.info("Reading in Qualtrics survey data...");
         Survey s = new Survey();
         if (shouldDownload) {
-          s.unzip("./qualtrics/out/survey.zip");
+          s.unzip(filePath + "/survey.zip");
         }
         s.normalizeFileName();
-        responses = s.fetch("./qualtrics/out/survey.csv");
+        responses = s.fetch(filePath + "/survey.csv");
       } catch (Exception e) {
         logger.severe(e.getMessage());
         logger.severe("Couldn't extract or read survey... exiting!");
@@ -118,13 +140,15 @@ public final class App {
       }
     }
 
-    try {
-      logger.info("Cleaning up output folder...");
-      cleanUp();
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      logger.severe("Couldn't clean up the output folder... exiting!");
-      System.exit(1);
+    if (shouldCleanup) {
+      try {
+        logger.info("Cleaning up output folder...");
+        cleanUp();
+      } catch (Exception e) {
+        logger.severe(e.getMessage());
+        logger.severe("Couldn't clean up the output folder... exiting!");
+        System.exit(1);
+      }
     }
 
     logger.info("Finished!");
@@ -138,7 +162,7 @@ public final class App {
     logger = Logger.getLogger("ElectionsLog");
     FileHandler fh;
     try {
-      fh = new FileHandler("./qualtrics/out/ElectionsLog.log");
+      fh = new FileHandler(filePath + "/ElectionsLog.log");
       logger.addHandler(fh);
       SimpleFormatter simpleFormatter = new SimpleFormatter();
       fh.setFormatter(simpleFormatter);
@@ -163,10 +187,46 @@ public final class App {
   }
 
   /**
+   * Initialize dotenv object.
+   */
+  public static void createDotenv() {
+    String environment = System.getProperty("ENVIRONMENT");
+    // getLogger().info("The working environment is " + environment);
+    dotenv = Dotenv.configure()
+        .filename(".env." + environment)
+        .load();
+  }
+
+  /**
+   * Create a user's filepath.
+   */
+  public static void createFilePath() {
+    filePath = dotenv.get("FILEPATH");
+  }
+
+  /**
+   * Getter for the filepath.
+   *
+   * @return a filepath.
+   */
+  public static String getFilePath() {
+    return filePath;
+  }
+
+  /**
+   * Getter for the dotenv.
+   *
+   * @return the app's dotenv instance
+   */
+  public static Dotenv getDotenv() {
+    return dotenv;
+  }
+
+  /**
   * Clean-up output directory; delete all zip or csv files.
   */
   public static void cleanUp() {
-    for (File file : new File("./qualtrics/out").listFiles()) {
+    for (File file : new File(filePath).listFiles()) {
       String extension = "";
       int i = file.getName().lastIndexOf('.');
       if (i > 0) {

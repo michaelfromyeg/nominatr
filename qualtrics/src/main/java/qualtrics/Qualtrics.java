@@ -7,7 +7,6 @@ import com.qualtrics.api.sdk.corelibs.DataCenters;
 import com.qualtrics.api.sdk.generated.users.UsersApiClient;
 import com.qualtrics.api.sdk.generated.users.models.WhoAmIResponse;
 import com.qualtrics.api.sdk.httpclient.QualtricsHTTPClient;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import java.nio.file.Paths;
 
@@ -16,7 +15,6 @@ import java.nio.file.Paths;
  */
 public class Qualtrics {
 
-  private static Dotenv dotenv;
   private static QualtricsHTTPClient qualtricsConnection = null;
   private static String API_TOKEN;
   private static String SURVEY_ID;
@@ -26,13 +24,10 @@ public class Qualtrics {
    * Build a basic Qualtrics connection object.
    */
   public Qualtrics() {
-    // Load environment variables
-    dotenv = Dotenv.configure().load();
-
     // Initialize API keys, survey info
-    API_TOKEN = dotenv.get("QUALTRICS_API_KEY");
-    SURVEY_ID = dotenv.get("QUALTRICS_SURVEY_ID");
-    URL_LINK = dotenv.get("QUALTRICS_SURVEY_URL");
+    API_TOKEN = App.getDotenv().get("QUALTRICS_API_KEY");
+    SURVEY_ID = App.getDotenv().get("QUALTRICS_SURVEY_ID");
+    URL_LINK = App.getDotenv().get("QUALTRICS_SURVEY_URL");
   }
 
   /**
@@ -73,7 +68,7 @@ public class Qualtrics {
     Extensions extensions = new Extensions(qualtricsConnection);
     try {
       File responses = extensions.exportResponses(SURVEY_ID, "csv");
-      System.out.println(responses.toString());
+      // System.out.println(responses.toString());
     } catch (InterruptedException e) {
       e.printStackTrace();
       throw new Exception("Unable to download file to qualtrics/out folder.");
@@ -84,14 +79,14 @@ public class Qualtrics {
    * Normalize filenames in the qualtrics/out folder.
    */
   public void normalizeFileName() {
-    for (File file : new File("./qualtrics/out").listFiles()) {
+    for (File file : new File(App.getFilePath()).listFiles()) {
       String extension = "";
       int i = file.getName().lastIndexOf('.');
       if (i > 0) {
         extension = file.getName().substring(i + 1);
       }
       if (!file.isDirectory() && extension.length() > 0 && extension.equals("zip")) {
-        file.renameTo(new File("./qualtrics/out/survey.zip"));
+        file.renameTo(new File(App.getFilePath() + "/survey.zip"));
       }
     }
   }

@@ -1,3 +1,0 @@
-mvn install:install-file -Dfile="./sdk/authentication-1.0.12.jar" -DgroupId="com.qualtrics.api.sdk" -DartifactId=authentication -Dversion="1.0.12" -Dpackaging=jar -DgeneratePom=true
-mvn install:install-file -Dfile="./sdk/api-client-library-1.0.12.jar" -DgroupId="com.qualtrics.api.sdk" -DartifactId="api-client-library" -Dversion="1.0.12" -Dpackaging=jar -DgeneratePom=true
-mvn install:install-file -Dfile="./sdk/http-client-1.0.12.jar" -DgroupId="com.qualtrics.api.sdk" -DartifactId="http-client" -Dversion="1.0.12" -Dpackaging=jar -DgeneratePom=true

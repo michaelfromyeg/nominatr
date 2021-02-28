@@ -3,7 +3,6 @@ package qualtrics;
 import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -24,11 +23,6 @@ import javax.mail.internet.MimeMultipart;
  * Contact election participants via email.
  */
 public class Contact {
-
-  /**
-   * The dotenv variables.
-   */
-  private Dotenv dotenv;
 
   /**
    * The host for sending mail over.
@@ -62,13 +56,11 @@ public class Contact {
    * @param e the election object
    */
   public Contact(final Election e) {
-    // Load environment variables
-    dotenv = Dotenv.configure().load();
     // Initialize API keys, survey info
-    host = dotenv.get("MAIL_HOST");
-    port = Integer.parseInt(dotenv.get("MAIL_PORT"));
-    username = dotenv.get("MAIL_USERNAME");
-    password = dotenv.get("MAIL_PASSWORD");
+    host = App.getDotenv().get("MAIL_HOST");
+    port = Integer.parseInt(App.getDotenv().get("MAIL_PORT"));
+    username = App.getDotenv().get("MAIL_USERNAME");
+    password = App.getDotenv().get("MAIL_PASSWORD");
     this.election = e;
   }
 
@@ -128,9 +120,9 @@ public class Contact {
       MimeBodyPart mimeBodyPart = new MimeBodyPart();
       mimeBodyPart.setContent(msg, "text/html");
       MimeBodyPart attachmentCsv = new MimeBodyPart();
-      attachmentCsv.attachFile(new File("./qualtrics/out/survey.csv"));
+      attachmentCsv.attachFile(new File(App.getFilePath() + "/survey.csv"));
       MimeBodyPart attachmentLog = new MimeBodyPart();
-      attachmentLog.attachFile(new File("./qualtrics/out/ElectionsLog.log"));
+      attachmentLog.attachFile(new File(App.getFilePath() + "/ElectionsLog.log"));
       Multipart multipart = new MimeMultipart();
       multipart.addBodyPart(mimeBodyPart);
       multipart.addBodyPart(attachmentCsv);

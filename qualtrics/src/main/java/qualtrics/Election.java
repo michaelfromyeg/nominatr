@@ -1,6 +1,5 @@
 package qualtrics;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,13 +12,13 @@ import java.util.Map;
 public class Election {
 
   /**
-   * TODO.
+   * List of nominees.
    */
   private List<Nominee> nominees;
 
 
   /**
-   * TODO.
+   * List of nominators.
    */
   private List<Nominator> nominators;
 
@@ -28,18 +27,14 @@ public class Election {
    */
   private Map<Integer, String> positions;
 
-  /**
-   * TODO.
-   */
-  private Dotenv dotenv;
 
   /**
-   * TODO.
+   * Comma-separated list of names of people who cannot be nominators.
    */
   private String blacklist;
 
   /**
-   * TODO.
+   * Array of names of people who cannot be nominators.
    */
   private String[] blacklistNames;
 
@@ -50,8 +45,7 @@ public class Election {
     nominees = new ArrayList<Nominee>();
     nominators = new ArrayList<Nominator>();
     positions = new HashMap<Integer, String>();
-    dotenv = Dotenv.configure().load();
-    blacklist = dotenv.get("NOMIANTOR_BLACKLIST");
+    blacklist = App.getDotenv().get("NOMIANTOR_BLACKLIST");
     blacklistNames = blacklist.split(",");
   }
 
@@ -73,27 +67,33 @@ public class Election {
    */
   public final void processNominations(final List<Response> responses) {
     for (Response r : responses) {
-      if (r.getQ1().toCharArray()[0] == '1') {
-        String position = positions.get(Integer.parseInt(r.getQ10()));
-        App.getLogger().info(r.getQ4() + " is running for " + position);
-        Nominee n = new Nominee(r.getQ4().trim(), r.getQ6().trim(),
-            r.getQ5().trim(), r.getQ9().trim(), r.getQ10().trim());
+      if (r.getNomineeOrNominator().toCharArray()[0] == '1') {
+        String position = positions.get(Integer.parseInt(r.getNomineeRunningFor()));
+        App.getLogger().info(r.getNomineeFullName() + " is running for " + position);
+        Nominee n = new Nominee(r.getNomineeFullName().trim(), r.getNomineeEmail().trim(),
+            r.getNomineeStudentNumber().trim(), r.getNomineeMajor().trim(),
+            r.getNomineeRunningFor().trim());
         n.setRunningForPositionName(position);
         nominees.add(n);
       }
-      if (r.getQ1().toCharArray()[0] == '2') {
-        App.getLogger().info(r.getQ11() + " nominated " + r.getQ15()
+      if (r.getNomineeOrNominator().toCharArray()[0] == '2') {
+        App.getLogger().info(r.getNominatorFullName() + " nominated "
+            + r.getNominatorNominatingName()
             + " for the position of "
-            + positions.get(Integer.parseInt(r.getQ16())));
-        if (Arrays.asList(blacklistNames).contains(r.getQ11())) {
+            + positions.get(Integer.parseInt(r.getNominatorNominatingPosition())));
+        if (Arrays.asList(blacklistNames).contains(r.getNominatorFullName().trim())) {
           App.getLogger().warning(
               "A blacklisted individual named tried to nominate someone: "
-              + r.getQ11()
+              + r.getNominatorFullName()
               + ". They were probably a SUS Candidate last year.");
           continue;
         } else {
-          nominators.add(new Nominator(r.getQ11().trim(), r.getQ19().trim(),
-              r.getQ12().trim(), r.getQ13().trim(), r.getQ15().trim(), r.getQ16().trim()));
+          nominators.add(new Nominator(r.getNominatorFullName().trim(),
+              r.getNominatorEmail().trim(),
+              r.getNominatorStudentNumber().trim(),
+              r.getNominatorMajor().trim(),
+              r.getNominatorNominatingName().trim(),
+              r.getNominatorNominatingPosition().trim()));
         }
       }
     }

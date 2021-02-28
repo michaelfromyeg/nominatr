@@ -1,5 +1,9 @@
+# AWS
+aws/
+scripts/
+
 # Environment variables
-.env
+.env*
 
 # Compiled class file
 *.class
