@@ -22,7 +22,15 @@
     },
     {
       "type": "java",
-      "name": "Launch App - Production",
+      "name": "Launch App - Production (Local)",
+      "request": "launch",
+      "mainClass": "qualtrics.App",
+      "projectName": "qualtrics",
+      "vmArgs": "-DENVIRONMENT=production-local"
+    }
+    {
+      "type": "java",
+      "name": "Launch App - Production (AWS)",
       "request": "launch",
       "mainClass": "qualtrics.App",
       "projectName": "qualtrics",

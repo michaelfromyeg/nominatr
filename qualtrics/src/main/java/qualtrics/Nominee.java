@@ -1,14 +1,21 @@
 package qualtrics;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An object representing someone who is running for a position.
  */
-public class Nominee {
+public class Nominee implements Serializable {
 
+  /**
+   * serialVersionUID for nominee.
+   */
+  private static final long serialVersionUID = -2372727601561399983L;
   private String fullName;
+  private String firstName;
+  private String lastName;
   private String email;
   private String studentNumber;
   private String major;
@@ -16,6 +23,7 @@ public class Nominee {
   private int nominationTally;
   private String runningForPositionName;
   private List<Nominator> nominators;
+  private boolean shouldEmail;
 
   /**
    * An all-field constructor for a nominee.
@@ -31,17 +39,42 @@ public class Nominee {
       String studentNumber,
       String major,
       String runningFor) {
-    this.fullName = fullName;
+    // Scrub middle names
+    String[] names = fullName.split(" ");
+    if (names.length == 3) {
+      this.fullName = names[0] + " " + names[2];
+      this.firstName = names[0];
+      this.lastName = names[2];
+    } else if (names.length == 2) {
+      this.fullName = names[0] + " " + names[1];
+      this.firstName = names[0];
+      this.lastName = names[1];
+    } else if (names.length == 1) {
+      this.fullName = null;
+      this.firstName = fullName;
+    } else {
+      App.getLogger().warning("Tried to create a nominee with more than 3 names, "
+          + "or 0 names: " + fullName);
+    }
     this.email = email;
     this.studentNumber = studentNumber;
     this.major = major;
     this.runningFor = runningFor;
     this.nominationTally = 0;
     this.nominators = new ArrayList<>();
+    this.shouldEmail = true;
   }
 
   public void incrementTally() {
     this.nominationTally += 1;
+  }
+
+  public boolean getShouldEmail() {
+    return this.shouldEmail;
+  }
+
+  public void setShouldEmail(boolean shouldEmail) {
+    this.shouldEmail = shouldEmail;
   }
 
   /**
@@ -93,6 +126,22 @@ public class Nominee {
     this.fullName = fullName;
   }
 
+  public String getFirstName() {
+    return this.firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return this.lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
   public String getEmail() {
     return this.email;
   }
@@ -134,6 +183,8 @@ public class Nominee {
       + ", studentNumber='" + getStudentNumber() + "'"
       + ", major='" + getMajor() + "'"
       + ", runningFor='" + getRunningFor() + "'"
+      + ", tally='" + getTally() + "'"
+      + ", shouldEmail='" + Boolean.toString(getShouldEmail()) + "'"
       + "}";
   }
 

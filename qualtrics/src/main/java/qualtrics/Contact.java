@@ -8,6 +8,8 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import javax.mail.AuthenticationFailedException;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.Multipart;
@@ -18,6 +20,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+
+import org.apache.commons.collections.functors.ExceptionPredicate;
 
 /**
  * Contact election participants via email.
@@ -45,6 +49,11 @@ public class Contact {
   private String password;
 
   /**
+   * Relative filepath to templates folder.
+   */
+  private String templates;
+
+  /**
    * A copy of the current election data.
    */
   private Election election;
@@ -61,6 +70,7 @@ public class Contact {
     port = Integer.parseInt(App.getDotenv().get("MAIL_PORT"));
     username = App.getDotenv().get("MAIL_USERNAME");
     password = App.getDotenv().get("MAIL_PASSWORD");
+    templates = App.getDotenv().get("TEMPLATE_FILEPATH");
     this.election = e;
   }
 
@@ -83,9 +93,9 @@ public class Contact {
   }
 
   /**
-   * This is a comment.
+   * Contact the elections administrators.
    *
-   * @throws Exception if there was an issue contacting election participants
+   * @throws Exception if there was an issue contacting election administrators.
    */
   public final void contactElections() throws Exception {
     Properties prop = new Properties();
@@ -104,14 +114,15 @@ public class Contact {
       Map<String, Map<String, String>> electionsData =
           buildElectionsData(election);
       Message message = new MimeMessage(session);
-      message.setFrom(new InternetAddress("michaelfromyeg@gmail.com"));
+      message.setFrom(new InternetAddress(username));
+      // Email yourself
       message.setRecipients(Message.RecipientType.TO,
-          InternetAddress.parse("mdemar01@student.ubc.ca"));
-      message.setSubject("[Qualtrics] Daily Elections Update");
+          InternetAddress.parse(username));
+      message.setSubject("[Qualtrics] Elections Update");
       Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
       cfg.setDefaultEncoding("UTF-8");
       FileTemplateLoader ftl = new FileTemplateLoader(
-          new File("./qualtrics/src/main/java/qualtrics/templates/"));
+          new File(templates + "/"));
       cfg.setTemplateLoader(ftl);
       Template template = cfg.getTemplate("elections-template.ftl");
       StringWriter stringWriter = new StringWriter();
@@ -131,12 +142,14 @@ public class Contact {
       Transport.send(message);
     } catch (Exception e) {
       e.printStackTrace();
-      throw new Exception("Couldn\'t contact election participants");
+      throw new Exception("Could not contact election administrators.");
     }
   }
 
   /**
-   * This is a comment.
+   * Contact all nominees in the election.
+   *
+   * @throws Exception if there was an issue contacting nominees
    */
   public final void contactNominees() throws Exception {
     Properties prop = new Properties();
@@ -156,39 +169,44 @@ public class Contact {
           buildNomineesData(election);
       for (Map.Entry<String, Map<String, Map<String, String>>> entry
           : nomineesData.entrySet()) {
-        String key = entry.getKey();
-        Map<String, Map<String, String>> value = entry.getValue();
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("michaelfromyeg@gmail.com"));
-        App.getLogger().info("Sending an email to " + key);
-        message.setRecipients(
-            Message.RecipientType.TO,
-            InternetAddress.parse("mdemar01@student.ubc.ca"));
-        message.setSubject("[Qualtrics] SUS Election Nominee Receipt");
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
-        cfg.setDefaultEncoding("UTF-8");
-        FileTemplateLoader ftl = new FileTemplateLoader(
-            new File("./qualtrics/src/main/java/qualtrics/templates/"));
-        cfg.setTemplateLoader(ftl);
-        Template template = cfg.getTemplate("nominee-template.ftl");
-        StringWriter stringWriter = new StringWriter();
-        template.process(value, stringWriter);
-        String msg = stringWriter.toString();
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
-        Transport.send(message);
+        String nomineeEmail = entry.getKey();
+        try {
+          Map<String, Map<String, String>> value = entry.getValue();
+          Message message = new MimeMessage(session);
+          message.setFrom(new InternetAddress(username));
+          App.getLogger().info("Sending an email to nominee: " + nomineeEmail);
+          message.setRecipients(
+              Message.RecipientType.TO,
+              InternetAddress.parse(nomineeEmail));
+          message.setSubject("[Qualtrics] SUS Election Nominee Receipt");
+          Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
+          cfg.setDefaultEncoding("UTF-8");
+          FileTemplateLoader ftl = new FileTemplateLoader(
+              new File(templates + "/"));
+          cfg.setTemplateLoader(ftl);
+          Template template = cfg.getTemplate("nominee-template.ftl");
+          StringWriter stringWriter = new StringWriter();
+          template.process(value, stringWriter);
+          String msg = stringWriter.toString();
+          MimeBodyPart mimeBodyPart = new MimeBodyPart();
+          mimeBodyPart.setContent(msg, "text/html");
+          Multipart multipart = new MimeMultipart();
+          multipart.addBodyPart(mimeBodyPart);
+          message.setContent(multipart);
+          Transport.send(message);
+        } catch (Exception e) {
+          e.printStackTrace();
+          App.getLogger().warning("Could not contact " + nomineeEmail);
+        }
       }
     } catch (Exception e) {
       e.printStackTrace();
-      throw new Exception("Couldn\'t contact election participants");
+      throw new Exception("Could not contact nominees.");
     }
   }
 
   /**
-   * This is a comment.
+   * Contact all nominators in the election.
    *
    * @throws Exception if there's any issue with contacting nominators, throw an exception
    */
@@ -210,39 +228,44 @@ public class Contact {
           buildNominatorsData(election);
       for (Map.Entry<String, Map<String, Map<String, String>>> entry
           : nominatorsData.entrySet()) {
-        String key = entry.getKey();
-        Map<String, Map<String, String>> value = entry.getValue();
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("michaelfromyeg@gmail.com"));
-        App.getLogger().info("Sending an email to the nominator: " + key);
-        message.setRecipients(
-            Message.RecipientType.TO,
-            InternetAddress.parse("mdemar01@student.ubc.ca"));
-        message.setSubject("[Qualtrics] SUS Election Nomination Receipt");
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
-        cfg.setDefaultEncoding("UTF-8");
-        FileTemplateLoader ftl = new FileTemplateLoader(
-            new File("./qualtrics/src/main/java/qualtrics/templates/"));
-        cfg.setTemplateLoader(ftl);
-        Template template = cfg.getTemplate("nominator-template.ftl");
-        StringWriter stringWriter = new StringWriter();
-        template.process(value, stringWriter);
-        String msg = stringWriter.toString();
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html");
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
-        Transport.send(message);
+        String nominatorEmail = entry.getKey();
+        try {
+          Map<String, Map<String, String>> value = entry.getValue();
+          Message message = new MimeMessage(session);
+          message.setFrom(new InternetAddress(username));
+          App.getLogger().info("Sending an email to nominator: " + nominatorEmail);
+          message.setRecipients(
+              Message.RecipientType.TO,
+              InternetAddress.parse(nominatorEmail));
+          message.setSubject("[Qualtrics] SUS Election Nomination Receipt");
+          Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
+          cfg.setDefaultEncoding("UTF-8");
+          FileTemplateLoader ftl = new FileTemplateLoader(
+              new File("./qualtrics/src/main/java/qualtrics/templates/"));
+          cfg.setTemplateLoader(ftl);
+          Template template = cfg.getTemplate("nominator-template.ftl");
+          StringWriter stringWriter = new StringWriter();
+          template.process(value, stringWriter);
+          String msg = stringWriter.toString();
+          MimeBodyPart mimeBodyPart = new MimeBodyPart();
+          mimeBodyPart.setContent(msg, "text/html");
+          Multipart multipart = new MimeMultipart();
+          multipart.addBodyPart(mimeBodyPart);
+          message.setContent(multipart);
+          Transport.send(message);
+        } catch (Exception e) {
+          e.printStackTrace();
+          App.getLogger().warning("Could not contact " + nominatorEmail);
+        }
       }
     } catch (Exception e) {
       e.printStackTrace();
-      throw new Exception("Couldn\'t contact nominators");
+      throw new Exception("Could not contact nominators.");
     }
   }
 
   /**
-   * This is a comment.
+   * Build the election data for the EA email.
    *
    * @param e the elections object
    * @return elections data in the correct format for FTL
@@ -254,21 +277,33 @@ public class Contact {
     Map<String, String> nomineesMap = new HashMap<String, String>();
     Map<String, String> nominatorsMap = new HashMap<String, String>();
     for (Nominee n : e.getNominees()) {
-      nomineesMap.put(n.getFullName()
+      String nomineeName = "";
+      if (n.getFullName() == null) {
+        nomineeName = n.getFirstName();
+      } else {
+        nomineeName = n.getFullName();
+      }
+      nomineesMap.put(nomineeName
           + " for "
           + n.getRunningForPositionName(),
           n.getTally() + "");
     }
     electionsMap.put("nominees", nomineesMap);
     for (Nominator n : e.getNominators()) {
-      nominatorsMap.put(n.getFullName(), n.getNominatingName());
+      String nominatingName = "";
+      if (n.getNominatingName() == null) {
+        nominatingName = n.getNominatingNameFirstName();
+      } else {
+        nominatingName = n.getNominatingName();
+      }
+      nominatorsMap.put(n.getFullName(), nominatingName);
     }
     electionsMap.put("nominators", nominatorsMap);
     return electionsMap;
   }
 
   /**
-   * This is a comment.
+   * Build data object for nominee data.
    *
    * @param e the elections object
    * @return nominees data in the correct format for FTL
@@ -278,13 +313,20 @@ public class Contact {
     Map<String, Map<String, Map<String, String>>> nomineesMap =
         new HashMap<String, Map<String, Map<String, String>>>();
     for (Nominee n : e.getNominees()) {
-      nomineesMap.put(n.getEmail(), this.getNomineeSummary(e, n));
+      if (n.getShouldEmail()) {
+        nomineesMap.put(n.getEmail(), this.getNomineeSummary(e, n));
+      }
+      if (n.getTally() >= 15) {
+        n.setShouldEmail(false);
+      }
     }
     return nomineesMap;
   }
 
   /**
    * Return data for the nominee summary email.
+   * TODO: refactor to not use maps for everything...
+   *
    * @param e the elections object
    * @param nominee an individual nominee
    * @return formatted data for nominee summary email.
@@ -294,10 +336,17 @@ public class Contact {
     Map<String, Map<String, String>> summaryMap =
         new HashMap<String, Map<String, String>>();
     Map<String, String> nameMap = new HashMap<String, String>();
+    Map<String, String> countMap = new HashMap<String, String>();
     Map<String, String> nomineeMap = new HashMap<String, String>();
     Map<String, String> theirNominatorsMap = new HashMap<String, String>();
-    nameMap.put(nominee.getFullName(), nominee.getFullName());
+    String nomineeName = nominee.getFullName() == null
+        ? nominee.getFirstName() : nominee.getFullName();
+    nameMap.put(nomineeName, nomineeName);
+    // Total votes, votes needed
+    countMap.put(nominee.getTally() + "",
+        Integer.max(App.getNominationsRequired() - nominee.getTally(), 0) + "");
     summaryMap.put("name", nameMap);
+    summaryMap.put("count", countMap);
     nomineeMap.put(nominee.getFullName() + " for "
         + nominee.getRunningForPositionName(),
         nominee.getTally() + "");
@@ -311,6 +360,7 @@ public class Contact {
 
   /**
    * Return formatted nominator data for FTL email.
+   *
    * @param e the election object
    * @return formatted nominator data
    */
@@ -319,13 +369,17 @@ public class Contact {
     Map<String, Map<String, Map<String, String>>> nominatorsMap =
         new HashMap<String, Map<String, Map<String, String>>>();
     for (Nominator n : e.getNominators()) {
-      nominatorsMap.put(n.getEmail(), this.getNominatorSummary(e, n));
+      if (n.getShouldEmail()) {
+        nominatorsMap.put(n.getEmail(), this.getNominatorSummary(e, n));
+      }
+      n.setShouldEmail(false);
     }
     return nominatorsMap;
   }
 
   /**
    * Return data for nominator summary email.
+   *
    * @param e the election object
    * @param nominator an individual nominator
    * @return formatted nominator data

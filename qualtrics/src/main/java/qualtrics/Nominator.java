@@ -1,17 +1,27 @@
 package qualtrics;
 
+import java.io.Serializable;
+
 /**
  * A data class represneting someone who nominated someone else.
  *
 */
-public class Nominator {
+public class Nominator implements Serializable {
 
+  /**
+   * serialVersionUID for nominator.
+   */
+  private static final long serialVersionUID = -115924478268007616L;
   private String fullName;
   private String email;
   private String studentNumber;
   private String major;
   private String nominatingName;
+  private String nominatingNameFirstName;
+  private String nominatingNameLastName;
   private String nominatingFor;
+  private boolean shouldEmail;
+  private boolean isTallied;
 
   /**
    * Construct a nominator.
@@ -27,13 +37,47 @@ public class Nominator {
       String studentNumber,
       String major,
       String nominatingName,
-      String nominatingFor) {
+      String nominatingFor)  {
     this.fullName = fullName;
     this.email = email;
     this.studentNumber = studentNumber;
     this.major = major;
-    this.nominatingName = nominatingName;
+    String[] names = nominatingName.split(" ");
+    if (names.length == 3) {
+      this.nominatingName = names[0] + " " + names[2];
+      this.nominatingNameFirstName = names[0];
+      this.nominatingNameLastName = names[2];
+    } else if (names.length == 2) {
+      this.nominatingName = names[0] + " " + names[1];
+      this.nominatingNameFirstName = names[0];
+      this.nominatingNameLastName = names[1];
+    } else if (names.length == 1) {
+      this.nominatingName = null;
+      this.nominatingNameFirstName = nominatingName;
+      this.nominatingNameLastName = nominatingName;
+    } else {
+      App.getLogger().warning("Tried to create a nominating nominating someone with "
+          + "more than 3 names, or 0 names: " + fullName);
+    }
     this.nominatingFor = nominatingFor;
+    this.shouldEmail = true;
+    this.isTallied = false;
+  }
+
+  public boolean getShouldEmail() {
+    return this.shouldEmail;
+  }
+
+  public void setShouldEmail(boolean shouldEmail) {
+    this.shouldEmail = shouldEmail;
+  }
+
+  public boolean getIsTallied() {
+    return this.isTallied;
+  }
+
+  public void setIsTallied(boolean isTallied) {
+    this.isTallied = isTallied;
   }
 
   // Getters and setters
@@ -78,6 +122,22 @@ public class Nominator {
     this.nominatingName = nominatingName;
   }
 
+  public String getNominatingNameFirstName() {
+    return this.nominatingNameFirstName;
+  }
+
+  public void setNominatingNameFirstName(String nominatingNameFirstName) {
+    this.nominatingNameFirstName = nominatingNameFirstName;
+  }
+
+  public String getNominatingNameLastName() {
+    return this.nominatingNameLastName;
+  }
+
+  public void setNominatingNameLastName(String nominatingNameLastName) {
+    this.nominatingNameLastName = nominatingNameLastName;
+  }
+
   public String getNominatingFor() {
     return this.nominatingFor;
   }
@@ -96,6 +156,8 @@ public class Nominator {
       + ", major='" + getMajor() + "'"
       + ", nominatingName='" + getNominatingName() + "'"
       + ", nominatingFor='" + getNominatingFor() + "'"
+      + ", shouldEmail='" + Boolean.toString(getShouldEmail()) + "'"
+      + ", isTallied='" + Boolean.toString(getIsTallied()) + "'"
       + "}";
   }
 

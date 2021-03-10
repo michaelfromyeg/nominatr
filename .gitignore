@@ -1,3 +1,6 @@
+# Cached data
+*.ser
+
 # AWS
 aws/
 scripts/

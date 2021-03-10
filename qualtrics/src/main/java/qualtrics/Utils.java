@@ -10,7 +10,7 @@ public final class Utils {
   /**
    * Threshold variable for fuzzyEquals method.
    */
-  private static final int FUZZY_THRESHHOLD = 2;
+  private static final int FUZZY_THRESHHOLD = 3;
 
   private Utils() {
     // Empty constructor for utility class
@@ -24,8 +24,13 @@ public final class Utils {
    * @return whether strings have a dist of less than FUZZY_THRESHHOLD
    */
   public static boolean fuzzyEquals(final String a, final String b) {
+    if (a == null || b == null) {
+      return false;
+    }
+    String asLower = a.toLowerCase();
+    String bsLower = b.toLowerCase();
     LevenshteinDistance levInstance = new LevenshteinDistance();
-    int dist = levInstance.apply(a, b);
+    int dist = levInstance.apply(asLower, bsLower);
     return dist <= FUZZY_THRESHHOLD;
   }
 

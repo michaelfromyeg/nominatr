@@ -47,12 +47,17 @@ public final class App {
   /**
   * Whether or not emails should be sent.
   */
-  private static boolean shouldContact = false;
+  private static boolean shouldContact = true;
 
   /**
    * Whether or not the download folder should be cleaned up.
    */
   private static boolean shouldCleanup = true;
+
+  /**
+   * Total nominations required to run.
+   */
+  private static final int nominationsRequired = 15;
 
   private App() {
     // Empty constructor for final class
@@ -112,14 +117,23 @@ public final class App {
       logger.info("Tabulating current election results...");
       // Add possible positions
       String[] positions = {"NULL",
-        "AMS Representative",
-        "Statistics Representative",
-        "Vantage College Representative"};
+        "President",
+        "Vice President, Academic",
+        "Vice President, Administration",
+        "Vice President, Communications",
+        "Vice President, External",
+        "Vice President, Finance",
+        "Vice President, Internal",
+        "Vice President, Student Life",
+        "SUS AMS Representative"
+      };
       election.buildPositions(positions);
       // Process form responses and count the votes
       election.processNominations(responses);
       election.totalNominations();
+      election.printResults();
     } catch (Exception e) {
+      e.printStackTrace();
       logger.severe(e.getMessage());
       logger.severe("Couldn't process election results... exiting!");
       System.exit(1);
@@ -132,7 +146,8 @@ public final class App {
         Contact c = new Contact(election);
         c.contactElections();
         c.contactNominees();
-        c.contactNominators();
+        // c.contactNominators();
+        election.printResults();
       } catch (Exception e) {
         logger.severe(e.getMessage());
         logger.severe("Couldn't contact participants... exiting!");
@@ -142,6 +157,8 @@ public final class App {
 
     if (shouldCleanup) {
       try {
+        logger.info("Saving elections data for later use...");
+        election.saveNominations();
         logger.info("Cleaning up output folder...");
         cleanUp();
       } catch (Exception e) {
@@ -201,7 +218,7 @@ public final class App {
    * Create a user's filepath.
    */
   public static void createFilePath() {
-    filePath = dotenv.get("FILEPATH");
+    filePath = dotenv.get("OUT_FILEPATH");
   }
 
   /**
@@ -222,6 +239,10 @@ public final class App {
     return dotenv;
   }
 
+  public static int getNominationsRequired() {
+    return nominationsRequired;
+  }
+
   /**
   * Clean-up output directory; delete all zip or csv files.
   */
@@ -233,7 +254,7 @@ public final class App {
         extension = file.getName().substring(i + 1);
       }
       if (!file.isDirectory() && extension.length() > 0
-          && (extension.equals("zip") || extension.equals("csv"))) {
+          && (extension.equals("zip") || extension.equals("csv"))) { // extension.equals("ser")
         file.delete();
       }
     }
