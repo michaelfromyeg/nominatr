@@ -1,16 +1,18 @@
 package qualtrics;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * The election object, for processing election data.
@@ -313,14 +315,80 @@ public class Election {
   }
 
   /**
-   * Print all nominees.
+   * Export the nominees, by position, to a CSV file.
    */
-  public void printResults() {
-    // for (Nominator n : nominators) {
-    //   System.out.println(n.toString());
-    // }
-    for (Nominee n : nominees) {
-      System.out.println(n.toString());
+  public void exportNominees(boolean shouldPrint) {
+    Map<String, List<Nominee>> nomineesMap = new HashMap<>();
+    for (Entry<Integer, String> position : positions.entrySet()) {
+      Integer positionIndex = position.getKey();
+      if (positionIndex == 0) { continue; }
+      String positionName = position.getValue();
+      List<Nominee> nomineesForPosition = new ArrayList<>();
+      for (Nominee n : nominees) {
+        if (Integer.parseInt(n.getRunningFor()) == positionIndex) {
+          nomineesForPosition.add(n);
+        }
+      }
+      nomineesMap.put(positionName, nomineesForPosition);
+    }
+
+    try (PrintWriter pw = new PrintWriter(new File(App.getFilePath() + "/positions.csv"))) {
+      StringBuilder sb = new StringBuilder();
+      String header = "Position,Names";
+      sb.append(header + "\n");
+      for (Entry<String, List<Nominee>> entry : nomineesMap.entrySet()) {
+        List<String> names = new ArrayList<>();
+        for (Nominee n : entry.getValue()) {
+          if (n.getFullName() == null || n.getTally() < App.getNominationsRequired()) {
+            continue;
+          } else {
+            names.add(n.getFullName());
+          }
+        }
+        if (shouldPrint) {
+          App.getLogger().info(entry.getKey() + ": " + String.join("; ", names));
+        }
+        String formattedPosition = entry.getKey().replace("Vice President,", "VP");
+        sb.append(formattedPosition + "," + String.join("; ", names) + "\n");
+      }
+      App.getLogger().info(sb.toString());
+      pw.print(sb.toString());
+      pw.close();
+      System.out.println("Done!");
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+
+    }
+  }
+
+  /**
+   * Find a time for all candidates to meet, via a Doodle poll.
+   */
+  public void scheduleMeeting() {
+    System.out.println("Not implemented yet!");
+  }
+
+  /**
+   * Find a time for each position to meet, via a Doodle poll.
+   */
+  public void scheduleMeetingByPosition() {
+    System.out.println("Not implemented yet!");
+  }
+
+  /**
+   * Print all nominees and nominators participating in the election.
+   */
+  public void printResults(boolean printNominators, boolean printNominees) {
+    if (printNominators) {
+      for (Nominator n : nominators) {
+        System.out.println(n.toString());
+      }
+    }
+    if (printNominees) {
+      for (Nominee n : nominees) {
+        System.out.println(n.toString());
+      }
     }
   }
 

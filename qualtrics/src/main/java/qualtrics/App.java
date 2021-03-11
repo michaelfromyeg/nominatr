@@ -47,7 +47,7 @@ public final class App {
   /**
   * Whether or not emails should be sent.
   */
-  private static boolean shouldContact = true;
+  private static boolean shouldContact = false;
 
   /**
    * Whether or not the download folder should be cleaned up.
@@ -131,7 +131,8 @@ public final class App {
       // Process form responses and count the votes
       election.processNominations(responses);
       election.totalNominations();
-      election.printResults();
+      election.exportNominees(true);
+      election.printResults(false, true);
     } catch (Exception e) {
       e.printStackTrace();
       logger.severe(e.getMessage());
@@ -146,8 +147,7 @@ public final class App {
         Contact c = new Contact(election);
         c.contactElections();
         c.contactNominees();
-        // c.contactNominators();
-        election.printResults();
+        c.contactNominators();
       } catch (Exception e) {
         logger.severe(e.getMessage());
         logger.severe("Couldn't contact participants... exiting!");
@@ -253,7 +253,7 @@ public final class App {
       if (i > 0) {
         extension = file.getName().substring(i + 1);
       }
-      if (!file.isDirectory() && extension.length() > 0
+      if (!file.isDirectory() && !file.getName().equals("positions.csv") && extension.length() > 0
           && (extension.equals("zip") || extension.equals("csv"))) { // extension.equals("ser")
         file.delete();
       }

@@ -1,3 +1,7 @@
+# Data
+*.csv
+*.xls
+
 # Cached data
 *.ser
 
